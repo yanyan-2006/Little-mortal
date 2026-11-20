@@ -55,12 +55,12 @@
       z-index: 10;
     }
 
-    /* Blush - پایین‌تر اومده */
+    /* Blush - موقعیت تنظیم شده */
     .blush {
       position: absolute;
-      top: 33.5%;
-      width: 5.2%;
-      height: 3.3%;
+      top: 31.8%;
+      width: 5%;
+      height: 3.2%;
       background: radial-gradient(circle, #ff8eab 0%, #ff6b8a 55%, transparent 100%);
       border-radius: 50%;
       filter: blur(7px);
@@ -70,8 +70,8 @@
       z-index: 5;
     }
 
-    .blush.left  { left: 43.4%; }
-    .blush.right { left: 51.6%; }
+    .blush.left  { left: 43.6%; }
+    .blush.right { left: 51.4%; }
 
     .scene.petting .blush {
       opacity: 0.88;
@@ -171,8 +171,8 @@
         height: 38%;
       }
 
-      .blush.left  { left: 41%; top: 35%; }
-      .blush.right { left: 52.5%; top: 35%; }
+      .blush.left  { left: 41.5%; top: 33.5%; }
+      .blush.right { left: 52%;   top: 33.5%; }
 
       .message { top: 53%; }
     }
@@ -288,12 +288,10 @@
       button.click();
     }, { passive: false });
 
-    // Occasional hearts
     setInterval(() => {
       makeHeart(37 + Math.random() * 26, 14 + Math.random() * 22);
     }, 10500);
 
-    // Occasional kiss
     setInterval(() => {
       const kiss = document.createElement("div");
       kiss.className = "kiss";
