@@ -41,7 +41,7 @@
       pointer-events: none;
     }
 
-    /* Touch area - head + upper body */
+    /* Touch area */
     .yan-touch {
       position: absolute;
       left: 37%;
@@ -75,28 +75,6 @@
 
     .scene.petting .blush {
       opacity: 0.88;
-    }
-
-    /* Soft eyelid */
-    .eyelid {
-      position: absolute;
-      top: 26.8%;
-      width: 3.5%;
-      height: 0;
-      background: #c9a08f;
-      border-radius: 50% 50% 40% 40%;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 6;
-      transition: height 0.08s ease-out, opacity 0.08s;
-    }
-
-    .eyelid.left  { left: 45.4%; }
-    .eyelid.right { left: 51.4%; }
-
-    .scene.blinking .eyelid {
-      height: 1.5%;
-      opacity: 0.95;
     }
 
     /* Hearts */
@@ -196,9 +174,6 @@
       .blush.left  { left: 40.5%; top: 32%; }
       .blush.right { left: 53%;   top: 32%; }
 
-      .eyelid.left  { left: 43.8%; top: 28.5%; }
-      .eyelid.right { left: 52.2%; top: 28.5%; }
-
       .message { top: 53%; }
     }
   </style>
@@ -212,9 +187,6 @@
 
     <div class="blush left"></div>
     <div class="blush right"></div>
-
-    <div class="eyelid left"></div>
-    <div class="eyelid right"></div>
 
     <div class="message" id="message">hehe... ♡</div>
   </div>
@@ -316,20 +288,6 @@
       e.preventDefault();
       button.click();
     }, { passive: false });
-
-    // Blinking
-    function blink() {
-      scene.classList.add("blinking");
-      setTimeout(() => scene.classList.remove("blinking"), 135);
-    }
-
-    function scheduleBlink() {
-      setTimeout(() => {
-        blink();
-        scheduleBlink();
-      }, 2300 + Math.random() * 4000);
-    }
-    scheduleBlink();
 
     // Occasional hearts
     setInterval(() => {
