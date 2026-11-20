@@ -41,6 +41,7 @@
       pointer-events: none;
     }
 
+    /* Touch area */
     .yan-touch {
       position: absolute;
       left: 37%;
@@ -54,27 +55,29 @@
       z-index: 10;
     }
 
+    /* Blush - پایین‌تر اومده */
     .blush {
       position: absolute;
-      top: 30.5%;
-      width: 5.4%;
-      height: 3.6%;
+      top: 33.5%;
+      width: 5.2%;
+      height: 3.3%;
       background: radial-gradient(circle, #ff8eab 0%, #ff6b8a 55%, transparent 100%);
       border-radius: 50%;
-      filter: blur(8px);
+      filter: blur(7px);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.28s ease;
       z-index: 5;
     }
 
-    .blush.left  { left: 43.2%; }
-    .blush.right { left: 51.8%; }
+    .blush.left  { left: 43.4%; }
+    .blush.right { left: 51.6%; }
 
     .scene.petting .blush {
       opacity: 0.88;
     }
 
+    /* Hearts */
     .heart {
       position: absolute;
       color: #ffb7c9;
@@ -97,6 +100,7 @@
       }
     }
 
+    /* Kiss */
     .kiss {
       position: absolute;
       left: 55%;
@@ -104,4 +108,201 @@
       color: #ff9eb5;
       font-size: clamp(24px, 3.6vw, 38px);
       pointer-events: none;
-      animation: kissFly 1.75s
+      animation: kissFly 1.75s cubic-bezier(0.22, 0.85, 0.3, 1) forwards;
+      z-index: 20;
+      text-shadow: 0 0 12px rgba(255, 120, 160, 0.7);
+    }
+
+    @keyframes kissFly {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      25% { opacity: 1; }
+      100% {
+        opacity: 0;
+        transform: scale(1.55) translate(75px, -85px) rotate(18deg);
+      }
+    }
+
+    /* Message */
+    .message {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      transform: translateX(-50%);
+      color: #ffe6ee;
+      font-size: clamp(13px, 2.1vw, 21px);
+      opacity: 0;
+      white-space: nowrap;
+      pointer-events: none;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+      transition: opacity 0.3s ease;
+      z-index: 15;
+      font-weight: 500;
+    }
+
+    .scene.petting .message {
+      opacity: 1;
+    }
+
+    .scene.petting img {
+      filter: brightness(1.04) saturate(1.06);
+      transition: filter 0.3s ease;
+    }
+
+    /* Mobile */
+    @media (max-width: 700px) {
+      .scene {
+        width: 100vw;
+        height: 100vh;
+        aspect-ratio: auto;
+      }
+
+      .scene img {
+        object-fit: cover;
+        object-position: center 25%;
+      }
+
+      .yan-touch {
+        left: 32%;
+        top: 14%;
+        width: 36%;
+        height: 38%;
+      }
+
+      .blush.left  { left: 41%; top: 35%; }
+      .blush.right { left: 52.5%; top: 35%; }
+
+      .message { top: 53%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scene" id="scene">
+    <img src="room.png" alt="Yan" draggable="false" />
+
+    <button class="yan-touch" id="yanTouch" aria-label="ناز کردن یان"></button>
+
+    <div class="blush left"></div>
+    <div class="blush right"></div>
+
+    <div class="message" id="message">hehe... ♡</div>
+  </div>
+
+  <script>
+    const scene   = document.getElementById("scene");
+    const button  = document.getElementById("yanTouch");
+    const message = document.getElementById("message");
+
+    let audioCtx = null;
+    let isPetting = false;
+
+    function playCuteSound() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+
+        const now = audioCtx.currentTime;
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
+
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(940, now);
+        osc.frequency.exponentialRampToValueAtTime(1420, now + 0.09);
+
+        filter.type = "lowpass";
+        filter.frequency.value = 2400;
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.15, now + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.23);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.24);
+
+        const sparkle = audioCtx.createOscillator();
+        const sGain = audioCtx.createGain();
+        sparkle.type = "sine";
+        sparkle.frequency.value = 2150;
+        sGain.gain.setValueAtTime(0.045, now + 0.05);
+        sGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        sparkle.connect(sGain);
+        sGain.connect(audioCtx.destination);
+        sparkle.start(now + 0.05);
+        sparkle.stop(now + 0.16);
+      } catch (e) {}
+    }
+
+    function makeHeart(x, y) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = ["♡", "♥", "✧"][Math.floor(Math.random() * 3)];
+      heart.style.left = x + "%";
+      heart.style.top = y + "%";
+      scene.appendChild(heart);
+      setTimeout(() => heart.remove(), 1700);
+    }
+
+    const messages = [
+      "hehe... ♡",
+      "that feels nice...",
+      "you're so sweet ♡",
+      "again? please...",
+      "mmm\~ ♡",
+      "I like that...",
+      "more? ♡"
+    ];
+
+    button.addEventListener("click", () => {
+      if (isPetting) return;
+      isPetting = true;
+
+      scene.classList.add("petting");
+      message.textContent = messages[Math.floor(Math.random() * messages.length)];
+      playCuteSound();
+
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          makeHeart(40 + Math.random() * 20, 18 + Math.random() * 14);
+        }, i * 100);
+      }
+
+      setTimeout(() => {
+        scene.classList.remove("petting");
+        isPetting = false;
+      }, 1450);
+    });
+
+    button.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      button.click();
+    }, { passive: false });
+
+    // Occasional hearts
+    setInterval(() => {
+      makeHeart(37 + Math.random() * 26, 14 + Math.random() * 22);
+    }, 10500);
+
+    // Occasional kiss
+    setInterval(() => {
+      const kiss = document.createElement("div");
+      kiss.className = "kiss";
+      kiss.textContent = "♡";
+      scene.appendChild(kiss);
+      setTimeout(() => kiss.remove(), 1850);
+    }, 15500);
+
+    document.querySelector("img").addEventListener("dragstart", e => e.preventDefault());
+  </script>
+</body>
+</html>
