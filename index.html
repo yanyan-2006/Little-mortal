@@ -1,788 +1,380 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Little Yan ♡</title>
+<title>Yan ♡</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   min-height: 100vh;
-  overflow: hidden;
-  color: #f3edf3;
-  font-family: Georgia, serif;
-  background: #17171b;
-}
-
-.room {
-  min-height: 100vh;
-  position: relative;
+  background: #171519;
   display: flex;
-  justify-content: center;
   align-items: center;
-  overflow: hidden;
-  isolation: isolate;
-  background:
-    radial-gradient(ellipse at 50% 55%, #55515b 0%, transparent 52%),
-    linear-gradient(115deg, #242328, #3a383e 50%, #1c1b20);
-}
-
-/* Modern walls */
-
-.wall {
-  position: absolute;
-  inset: 0 0 105px;
-  z-index: -5;
-  background:
-    linear-gradient(90deg,
-      transparent 0 19.8%,
-      #ffffff08 20%,
-      transparent 20.2% 79.8%,
-      #ffffff08 80%,
-      transparent 80.2%),
-    linear-gradient(180deg, #29282d, #39373d);
-}
-
-.wall::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, #00000030, transparent 25%, transparent 75%, #00000030),
-    radial-gradient(ellipse at 50% 70%, transparent 20%, #00000035 100%);
-}
-
-/* Tall winter window */
-
-.window {
-  position: absolute;
-  left: 6%;
-  top: 10%;
-  width: min(32vw, 310px);
-  height: min(58vh, 420px);
-  min-width: 170px;
-  min-height: 260px;
-  border: 8px solid #17171b;
-  outline: 1px solid #79747e;
-  background:
-    linear-gradient(90deg, transparent 49.5%, #29282e 49.5% 50.5%, transparent 50.5%),
-    linear-gradient(180deg, transparent 49.5%, #29282e 49.5% 50.5%, transparent 50.5%),
-    radial-gradient(circle at 75% 18%, #e9e8f0 0 2px, transparent 3px),
-    radial-gradient(circle at 20% 40%, #e9e8f0 0 2px, transparent 3px),
-    radial-gradient(circle at 60% 65%, #e9e8f0 0 2px, transparent 3px),
-    linear-gradient(160deg, #384354, #788394 65%, #b9bbc4);
-  box-shadow: 0 0 35px #c4c1dc20;
-}
-
-.window::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(110deg, #ffffff20, transparent 45%);
-}
-
-.snow {
-  position: absolute;
-  inset: 0;
+  justify-content: center;
+  font-family: Georgia, serif;
   overflow: hidden;
 }
 
-.snow i {
-  position: absolute;
-  top: -10px;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: white;
-  animation: snowfall 8s linear infinite;
-}
-
-.snow i:nth-child(1) { left: 12%; animation-delay: 0s; }
-.snow i:nth-child(2) { left: 28%; animation-delay: 2s; }
-.snow i:nth-child(3) { left: 45%; animation-delay: 1s; }
-.snow i:nth-child(4) { left: 62%; animation-delay: 4s; }
-.snow i:nth-child(5) { left: 80%; animation-delay: 2.5s; }
-.snow i:nth-child(6) { left: 92%; animation-delay: 5s; }
-
-@keyframes snowfall {
-  to { transform: translateY(450px) translateX(25px); }
-}
-
-/* Minimalist wall art */
-
-.art {
-  position: absolute;
-  right: 8%;
-  top: 13%;
-  width: 155px;
-  height: 190px;
-  border: 9px solid #17171a;
-  background: #b2a9a9;
-  box-shadow: 0 8px 25px #0005;
-}
-
-.art::before {
-  content: "";
-  position: absolute;
-  inset: 15px;
-  background:
-    radial-gradient(ellipse at 55% 35%, #38343d 0 17%, transparent 18%),
-    linear-gradient(135deg, transparent 40%, #766a75 41% 55%, transparent 56%),
-    linear-gradient(45deg, #d0c6c1, #8b858d);
-}
-
-.art::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 12px;
-  height: 145px;
-  width: 1px;
-  background: #ffffff50;
-  transform: rotate(35deg);
-}
-
-/* Modern sofa */
-
-.sofa {
-  position: absolute;
-  left: 3%;
-  bottom: 8%;
-  width: min(34vw, 310px);
-  height: 120px;
-  border-radius: 28px 28px 10px 10px;
-  background: linear-gradient(145deg, #69656b, #35333a);
-  box-shadow: 0 18px 28px #0008;
-  z-index: -1;
-}
-
-.sofa::before {
-  content: "";
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  top: 13px;
-  height: 65px;
-  border-radius: 19px;
-  background: linear-gradient(120deg, #77717a, #514d55);
-}
-
-.sofa::after {
-  content: "";
-  position: absolute;
-  left: 30px;
-  bottom: -12px;
-  width: 12px;
-  height: 20px;
-  background: #17171a;
-  box-shadow: 220px 0 #17171a;
-}
-
-.pillow {
-  position: absolute;
-  z-index: 1;
-  width: 67px;
-  height: 55px;
-  border-radius: 12px;
-  background: #8c7b88;
-  left: 27px;
-  top: 21px;
-  transform: rotate(-8deg);
-}
-
-/* Stone coffee table */
-
-.table {
-  position: absolute;
-  right: 7%;
-  bottom: 10%;
-  width: 190px;
-  height: 17px;
-  border-radius: 50%;
-  background: linear-gradient(100deg, #17171b, #77717b, #27262b);
-  box-shadow: 0 8px 16px #0008;
-  z-index: -1;
-}
-
-.table::before {
-  content: "";
-  position: absolute;
-  left: 45px;
-  top: 8px;
-  width: 100px;
-  height: 60px;
-  border-left: 3px solid #77717b;
-  border-right: 3px solid #77717b;
-}
-
-/* Floor */
-
-.floor {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 105px;
-  background: linear-gradient(180deg, #333137, #19181c);
-  border-top: 2px solid #5a555d;
-  z-index: -3;
-}
-
-.rug {
-  position: absolute;
-  bottom: 1%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(65vw, 570px);
-  height: 100px;
-  border-radius: 50%;
-  background: #625c66;
-  opacity: .45;
-  z-index: -2;
-}
-
-/* Hidden lighting */
-
-.ceiling-light {
-  position: absolute;
-  top: 0;
-  left: 20%;
-  right: 20%;
-  height: 3px;
-  background: #c6b9c9;
-  box-shadow: 0 5px 28px 7px #d5c3df45;
-}
-
-.side-light {
-  position: absolute;
-  right: 26%;
-  top: 32%;
-  width: 2px;
-  height: 170px;
-  background: #b7a9bd;
-  box-shadow: 0 0 30px 7px #c9b8d733;
-}
-
-/* Yan */
-
-.character {
+.scene {
   position: relative;
-  width: min(390px, 92vw);
-  height: min(570px, 82vh);
-  z-index: 4;
-  margin-top: 42px;
-  filter: drop-shadow(0 15px 12px #0006);
+  width: min(100vw, 150vh);
+  aspect-ratio: 1664 / 1024;
+  overflow: hidden;
+  background: #242127;
+  box-shadow: 0 0 70px #000;
 }
 
-.character svg {
+.scene img {
   width: 100%;
   height: 100%;
-  overflow: visible;
+  display: block;
+  object-fit: cover;
 }
 
-#head {
+/* Clickable Yan area */
+.yan-touch {
+  position: absolute;
+  left: 39%;
+  top: 14%;
+  width: 23%;
+  height: 31%;
+  border: 0;
+  background: transparent;
   cursor: pointer;
-  transform-box: fill-box;
-  transform-origin: center;
+  border-radius: 45%;
+  -webkit-tap-highlight-color: transparent;
 }
 
-#head:hover {
-  filter: drop-shadow(0 0 8px #f3c8df88);
-}
-
-.eye-group {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: blink 5.5s infinite;
-}
-
-@keyframes blink {
-  0%, 43%, 46%, 88%, 91%, 100% { transform: scaleY(1); }
-  44.5%, 89.5% { transform: scaleY(.08); }
-}
-
-#character.petting .eye-group {
-  animation: happyEyes .45s forwards;
-}
-
-@keyframes happyEyes {
-  to { transform: scaleY(.55); }
-}
-
+/* Blush */
 .blush {
+  position: absolute;
+  top: 32%;
+  width: 5%;
+  height: 3%;
+  background: #ed8297;
+  border-radius: 50%;
+  filter: blur(8px);
   opacity: 0;
+  pointer-events: none;
   transition: opacity .3s;
 }
 
-#character.petting .blush {
+.blush.left {
+  left: 44%;
+}
+
+.blush.right {
+  left: 52%;
+}
+
+.scene.petting .blush {
+  opacity: .75;
+}
+
+/* Blink effect */
+.blink {
+  position: absolute;
+  top: 27.8%;
+  width: 3.1%;
+  height: 0;
+  background: #b98779;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.blink.left {
+  left: 46%;
+}
+
+.blink.right {
+  left: 51%;
+}
+
+.scene.blinking .blink {
+  height: 1.3%;
+  opacity: .9;
+  transition: height .08s;
+}
+
+/* Hearts */
+.heart {
+  position: absolute;
+  color: #f5c2d9;
+  font-size: clamp(18px, 3vw, 35px);
+  pointer-events: none;
+  animation: floatHeart 1.5s ease-out forwards;
+  z-index: 5;
+}
+
+@keyframes floatHeart {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(.5);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-90px) scale(1.3);
+  }
+}
+
+/* Kiss */
+.kiss {
+  position: absolute;
+  left: 55%;
+  top: 20%;
+  color: #f5c2d9;
+  font-size: 30px;
+  animation: kissFly 1.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes kissFly {
+  0% {
+    opacity: 0;
+    transform: scale(.5);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(55px,-65px) scale(1.4);
+  }
+}
+
+/* Message */
+.message {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  transform: translateX(-50%);
+  color: #f3d7e5;
+  font-size: clamp(12px, 2vw, 20px);
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 2px 10px #000;
+  transition: opacity .3s;
+}
+
+.scene.petting .message {
   opacity: 1;
 }
 
-#character.petting #head {
-  animation: shy .45s ease-in-out;
-}
-
-@keyframes shy {
-  50% { transform: rotate(-4deg) translateY(5px); }
-}
-
-.arm-wave {
-  transform-box: fill-box;
-  transform-origin: 20% 90%;
-  animation: wave 8s infinite;
-}
-
-@keyframes wave {
-  0%, 76%, 100% { transform: rotate(0); }
-  79% { transform: rotate(-23deg); }
-  82% { transform: rotate(13deg); }
-  85% { transform: rotate(-20deg); }
-  88% { transform: rotate(0); }
-}
-
-.heart {
+/* Small instruction */
+.hint {
   position: absolute;
-  color: #efb8d5;
-  font-size: 25px;
-  pointer-events: none;
-  animation: heartUp 1.7s ease-out forwards;
-  z-index: 10;
-}
-
-@keyframes heartUp {
-  from { opacity: 0; transform: translateY(0) scale(.5); }
-  20% { opacity: 1; }
-  to { opacity: 0; transform: translateY(-100px) scale(1.3); }
-}
-
-.kiss {
-  position: absolute;
-  top: 18%;
-  left: 58%;
-  color: #f3bfdc;
-  font-size: 26px;
-  opacity: 0;
-  pointer-events: none;
-  animation: kiss 1.5s ease-out;
-}
-
-@keyframes kiss {
-  0% { opacity: 0; transform: translate(0, 20px) scale(.5); }
-  30% { opacity: 1; }
-  100% { opacity: 0; transform: translate(50px, -50px) scale(1.3); }
-}
-
-/* Title */
-
-.heading {
-  position: absolute;
-  top: 4%;
-  width: 100%;
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #e5d4df;
+  font-size: clamp(10px, 1.3vw, 15px);
   text-align: center;
-  z-index: 5;
+  white-space: nowrap;
+  text-shadow: 0 2px 8px #000;
+  pointer-events: none;
 }
 
-.heading h1 {
-  font-weight: normal;
-  font-size: clamp(25px, 5vw, 36px);
-  letter-spacing: 2px;
-  margin: 0;
-  color: #eee7ee;
-  text-shadow: 0 0 20px #e8c5e044;
-}
-
-.heading p {
-  font-size: 11px;
-  letter-spacing: 4px;
-  color: #b9b0bd;
-  margin-top: 9px;
-}
-
-.instruction {
-  position: absolute;
-  bottom: 3%;
-  width: 100%;
-  text-align: center;
-  color: #d0c5d1;
-  font-size: 13px;
-  letter-spacing: 1px;
-  z-index: 5;
-}
-
-.instruction span { color: #efbed8; }
-
-@media(max-width: 600px) {
-  .window {
-    left: 3%;
-    top: 14%;
-    width: 36vw;
+@media (max-width: 600px) {
+  .scene {
+    width: 100vw;
+    height: 100vh;
+    aspect-ratio: auto;
   }
 
-  .art {
-    right: 3%;
-    top: 16%;
-    transform: scale(.75);
-    transform-origin: top right;
+  .scene img {
+    object-fit: cover;
+    object-position: center;
   }
 
-  .sofa {
-    left: -18px;
-    width: 190px;
-    height: 90px;
+  .yan-touch {
+    left: 36%;
+    top: 18%;
+    width: 29%;
+    height: 29%;
   }
 
-  .table {
-    right: -25px;
-    transform: scale(.75);
-  }
+  .blush.left { left: 42%; }
+  .blush.right { left: 53%; }
 
-  .character {
-    width: min(340px, 95vw);
-    height: 66vh;
-    margin-top: 65px;
-  }
-
-  .heading { top: 5%; }
-  .instruction { bottom: 2%; font-size: 11px; }
+  .blink.left { left: 45%; }
+  .blink.right { left: 52%; }
 }
 </style>
 </head>
 
 <body>
-<div class="room">
 
-  <div class="wall"></div>
-  <div class="ceiling-light"></div>
-  <div class="side-light"></div>
+<div class="scene" id="scene">
 
-  <div class="window">
-    <div class="snow">
-      <i></i><i></i><i></i><i></i><i></i><i></i>
-    </div>
+  <img src="room.png" alt="Yan in her cozy modern room">
+
+  <button class="yan-touch"
+    id="yanTouch"
+    aria-label="Pet Yan">
+  </button>
+
+  <div class="blush left"></div>
+  <div class="blush right"></div>
+
+  <div class="blink left"></div>
+  <div class="blink right"></div>
+
+  <div class="message" id="message">
+    hehe... ♡
   </div>
 
-  <div class="art"></div>
-
-  <div class="sofa">
-    <div class="pillow"></div>
+  <div class="hint">
+    ♡ Tap Yan's head to give her some love ♡
   </div>
 
-  <div class="table"></div>
-  <div class="floor"></div>
-  <div class="rug"></div>
-
-  <div class="heading">
-    <h1>Little Yan ♡</h1>
-    <p>A LITTLE PIECE OF ME</p>
-  </div>
-
-  <div class="character" id="character">
-
-    <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
-
-      <defs>
-        <linearGradient id="skin" x2="0" y2="1">
-          <stop stop-color="#e0b18d"/>
-          <stop offset="1" stop-color="#bd8063"/>
-        </linearGradient>
-
-        <linearGradient id="hair" x2="1" y2="1">
-          <stop stop-color="#29232c"/>
-          <stop offset=".5" stop-color="#08080b"/>
-          <stop offset="1" stop-color="#382c39"/>
-        </linearGradient>
-
-        <linearGradient id="jeans" x2="0" y2="1">
-          <stop stop-color="#b1d5f1"/>
-          <stop offset="1" stop-color="#709bc1"/>
-        </linearGradient>
-
-        <pattern id="leopard" width="34" height="30" patternUnits="userSpaceOnUse">
-          <rect width="34" height="30" fill="#d5b99f"/>
-          <path d="M5 5 Q10 -2 16 6 Q13 13 6 12Z" fill="#49372e"/>
-          <path d="M23 17 Q30 10 32 19 Q29 27 22 25Z" fill="#49342c"/>
-          <ellipse cx="20" cy="4" rx="2" ry="3" fill="#765340"/>
-          <ellipse cx="3" cy="25" rx="2" ry="2" fill="#765340"/>
-        </pattern>
-      </defs>
-
-      <!-- Hair behind the body -->
-      <path d="M112 142
-        C90 68 130 35 207 37
-        C286 35 316 86 300 172
-        L310 251 Q291 286 278 258
-        L267 178 L131 183
-        L120 256 Q96 272 91 235Z"
-        fill="url(#hair)"/>
-
-      <!-- Neck -->
-      <path d="M178 215 L222 215 L230 260 L170 260Z"
-        fill="url(#skin)"/>
-
-      <!-- Legs -->
-      <path d="M151 423 L198 423 L190 520 L147 520Z"
-        fill="url(#jeans)" stroke="#527ba2" stroke-width="2"/>
-
-      <path d="M202 423 L249 423 L256 520 L211 520Z"
-        fill="url(#jeans)" stroke="#527ba2" stroke-width="2"/>
-
-      <!-- Jeans waistband -->
-      <path d="M148 416 Q199 429 252 416 L250 451
-        Q200 463 150 451Z"
-        fill="#a5cbe8" stroke="#527ba2" stroke-width="2"/>
-
-      <path d="M200 428 L200 470 M151 438 L195 438 M205 438 L247 438"
-        stroke="#527ba2" stroke-width="2" fill="none"/>
-
-      <!-- Boots -->
-      <path d="M147 505 L191 505 L192 548
-        Q193 558 181 560 L124 560
-        Q119 550 130 541Z"
-        fill="#17171c" stroke="#514a55" stroke-width="2"/>
-
-      <path d="M211 505 L256 505 L263 541
-        Q274 550 267 560 L210 560
-        Q204 554 208 545Z"
-        fill="#17171c" stroke="#514a55" stroke-width="2"/>
-
-      <path d="M129 548 L185 548 M211 548 L267 548"
-        stroke="#77717b" stroke-width="2"/>
-
-      <!-- Torso: fitted leopard turtleneck -->
-      <path d="M169 246
-        Q200 258 231 246
-        L258 275
-        L248 425
-        Q201 442 151 425
-        L142 275Z"
-        fill="url(#leopard)" stroke="#40332f" stroke-width="2"/>
-
-      <!-- Turtleneck -->
-      <path d="M174 236 Q200 247 226 236
-        L229 275 Q200 286 171 275Z"
-        fill="url(#leopard)" stroke="#49372e" stroke-width="2"/>
-
-      <!-- Sleeves -->
-      <path d="M157 260 Q136 264 127 294
-        L111 369 Q111 389 127 391
-        Q142 391 146 374 L169 301Z"
-        fill="url(#leopard)" stroke="#49372e" stroke-width="2"/>
-
-      <path d="M240 260 Q263 266 272 294
-        L287 364 Q291 385 275 391
-        Q260 394 254 375 L230 301Z"
-        fill="url(#leopard)" stroke="#49372e" stroke-width="2"/>
-
-      <!-- Left hand -->
-      <path d="M111 369 Q99 377 103 392
-        Q108 403 121 397 L129 386Z"
-        fill="url(#skin)"/>
-
-      <!-- Right hand -->
-      <path d="M273 371 Q284 379 280 394
-        Q274 405 262 396 L255 384Z"
-        fill="url(#skin)"/>
-
-      <!-- Head and face -->
-      <g id="head">
-
-        <!-- Face shape -->
-        <path d="M133 112
-          Q132 62 200 60
-          Q268 62 267 112
-          L260 172
-          Q252 215 200 228
-          Q148 215 140 172Z"
-          fill="url(#skin)"/>
-
-        <!-- Ears -->
-        <ellipse cx="136" cy="155" rx="12" ry="19" fill="#c88e6e"/>
-        <ellipse cx="264" cy="155" rx="12" ry="19" fill="#c88e6e"/>
-
-        <!-- Face-framing hair left -->
-        <path d="M143 91
-          Q118 117 128 169
-          Q130 188 142 201
-          Q151 174 150 140Z"
-          fill="url(#hair)"/>
-
-        <!-- Face-framing hair right -->
-        <path d="M257 90
-          Q282 118 271 169
-          Q269 188 257 201
-          Q249 173 250 140Z"
-          fill="url(#hair)"/>
-
-        <!-- Side-swept bangs -->
-        <path d="M129 116
-          Q124 53 193 48
-          Q259 43 273 103
-          Q252 91 234 97
-          Q214 104 194 115
-          Q167 130 140 125
-          Q147 108 166 95
-          Q147 101 129 116Z"
-          fill="url(#hair)"/>
-
-        <!-- Short face-framing strands -->
-        <path d="M139 101 Q144 132 151 160
-          Q159 139 155 112Z"
-          fill="#17131a"/>
-
-        <path d="M260 104 Q255 136 249 160
-          Q241 139 246 111Z"
-          fill="#17131a"/>
-
-        <!-- Hair shine -->
-        <path d="M143 81 Q167 47 204 53"
-          fill="none" stroke="#625365" stroke-width="3"
-          stroke-linecap="round" opacity=".6"/>
-
-        <!-- Eyes -->
-        <g class="eye-group">
-          <ellipse cx="172" cy="151" rx="12" ry="16" fill="#fff5ef"/>
-          <ellipse cx="228" cy="151" rx="12" ry="16" fill="#fff5ef"/>
-          <ellipse cx="174" cy="153" rx="7" ry="11" fill="#171319"/>
-          <ellipse cx="230" cy="153" rx="7" ry="11" fill="#171319"/>
-          <circle cx="176" cy="148" r="3" fill="white"/>
-          <circle cx="232" cy="148" r="3" fill="white"/>
-        </g>
-
-        <!-- Eyelashes -->
-        <path d="M159 142 Q171 128 185 142
-          M215 142 Q228 128 241 142"
-          fill="none" stroke="#211920" stroke-width="3"
-          stroke-linecap="round"/>
-
-        <!-- Blush -->
-        <g class="blush">
-          <ellipse cx="153" cy="178" rx="14" ry="7" fill="#ef8e9e" opacity=".65"/>
-          <ellipse cx="247" cy="178" rx="14" ry="7" fill="#ef8e9e" opacity=".65"/>
-        </g>
-
-        <!-- Nose and mouth -->
-        <path d="M197 170 Q200 173 203 170"
-          fill="none" stroke="#a76e5e" stroke-width="2"
-          stroke-linecap="round"/>
-
-        <path d="M193 190 Q200 196 207 190"
-          fill="none" stroke="#965c60" stroke-width="2.5"
-          stroke-linecap="round"/>
-
-      </g>
-
-      <!-- Waving arm -->
-      <g class="arm-wave">
-        <path d="M269 280 Q291 264 304 238
-          L319 209 Q325 195 336 202
-          Q346 209 337 223
-          L320 267 Q309 298 282 313Z"
-          fill="url(#leopard)" stroke="#49372e" stroke-width="2"/>
-
-        <path d="M336 205 Q341 185 352 186
-          Q361 189 355 202
-          L350 211 Q365 201 370 209
-          Q373 217 360 222
-          Q372 217 376 226
-          Q375 235 359 236
-          Q350 247 337 232Z"
-          fill="url(#skin)"/>
-      </g>
-
-    </svg>
-
-    <div class="kiss" id="kiss">♡</div>
-  </div>
-
-  <div class="instruction">
-    <span>♡</span> Tap Yan's head to give her some love <span>♡</span>
-  </div>
 </div>
 
 <script>
-const character = document.getElementById("character");
-const head = document.getElementById("head");
-const kiss = document.getElementById("kiss");
+const scene = document.getElementById("scene");
+const button = document.getElementById("yanTouch");
+const message = document.getElementById("message");
 
 let audioContext;
 
 function playCuteSound() {
   try {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return;
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) return;
 
-    if (!audioContext) audioContext = new AudioContext();
-    if (audioContext.state === "suspended") audioContext.resume();
+    if (!audioContext) {
+      audioContext = new Audio();
+    }
+
+    if (audioContext.state === "suspended") {
+      audioContext.resume();
+    }
 
     const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
+    const volume = audioContext.createGain();
 
     oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(700, audioContext.currentTime);
+    oscillator.frequency.setValueAtTime(
+      850, audioContext.currentTime
+    );
+
     oscillator.frequency.exponentialRampToValueAtTime(
-      1100, audioContext.currentTime + 0.12
+      1200, audioContext.currentTime + .12
     );
 
-    gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-    gain.gain.exponentialRampToValueAtTime(
-      0.12, audioContext.currentTime + 0.025
-    );
-    gain.gain.exponentialRampToValueAtTime(
-      0.0001, audioContext.currentTime + 0.22
+    volume.gain.setValueAtTime(
+      .001, audioContext.currentTime
     );
 
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
+    volume.gain.linearRampToValueAtTime(
+      .13, audioContext.currentTime + .03
+    );
+
+    volume.gain.exponentialRampToValueAtTime(
+      .001, audioContext.currentTime + .25
+    );
+
+    oscillator.connect(volume);
+    volume.connect(audioContext.destination);
 
     oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.23);
+    oscillator.stop(audioContext.currentTime + .26);
+
   } catch (error) {
-    // Sound is optional if the browser blocks audio.
+    console.log("Audio unavailable");
   }
 }
 
-function showHeart(x, y) {
+function makeHeart(x, y) {
   const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.textContent = "♡";
-  heart.style.left = x + "px";
-  heart.style.top = y + "px";
-  character.appendChild(heart);
 
-  setTimeout(() => heart.remove(), 1800);
+  heart.className = "heart";
+  heart.textContent = ["♡", "♥", "✧"][Math.floor(Math.random() * 3)];
+
+  heart.style.left = x + "%";
+  heart.style.top = y + "%";
+
+  scene.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 1600);
 }
 
-head.addEventListener("pointerdown", (event) => {
-  event.stopPropagation();
+button.addEventListener("click", () => {
+  scene.classList.add("petting");
 
-  character.classList.remove("petting");
-  void character.offsetWidth;
-  character.classList.add("petting");
+  message.textContent = [
+    "hehe... ♡",
+    "that feels nice!",
+    "you're sweet ♡",
+    "again? ♡"
+  ][Math.floor(Math.random() * 4)];
 
   playCuteSound();
 
-  const rect = character.getBoundingClientRect();
-  showHeart(
-    event.clientX - rect.left,
-    event.clientY - rect.top
+  makeHeart(
+    42 + Math.random() * 16,
+    23 + Math.random() * 10
   );
 
   setTimeout(() => {
-    character.classList.remove("petting");
+    scene.classList.remove("petting");
   }, 1300);
 });
 
-// Little kisses from time to time
-function sendKiss() {
-  kiss.style.animation = "none";
-  void kiss.offsetWidth;
-  kiss.style.animation = "kiss 1.5s ease-out";
+// Natural blinking effect
+function blink() {
+  scene.classList.add("blinking");
+
+  setTimeout(() => {
+    scene.classList.remove("blinking");
+  }, 140);
 }
 
-setInterval(sendKiss, 12000);
+function scheduleBlink() {
+  const delay = 2500 + Math.random() * 3500;
+
+  setTimeout(() => {
+    blink();
+    scheduleBlink();
+  }, delay);
+}
+
+scheduleBlink();
+
+// Occasional floating hearts
+function littleHeart() {
+  makeHeart(
+    39 + Math.random() * 23,
+    17 + Math.random() * 18
+  );
+}
+
+setInterval(littleHeart, 14000);
+
+// Occasional kiss
+function sendKiss() {
+  const kiss = document.createElement("div");
+
+  kiss.className = "kiss";
+  kiss.textContent = "♡";
+
+  scene.appendChild(kiss);
+
+  setTimeout(() => kiss.remove(), 1700);
+}
+
+setInterval(sendKiss, 18000);
+
 </script>
 
 </body>
