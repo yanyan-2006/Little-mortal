@@ -1,381 +1,351 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yan ♡</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Yan ♡</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-<style>
-* {
-  box-sizing: border-box;
-}
+    body {
+      min-height: 100vh;
+      background: #0c0b0e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: #171519;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Georgia, serif;
-  overflow: hidden;
-}
+    .scene {
+      position: relative;
+      width: min(100vw, 150vh);
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #141316;
+      box-shadow: 0 0 90px rgba(0, 0, 0, 0.85);
+      user-select: none;
+    }
 
-.scene {
-  position: relative;
-  width: min(100vw, 150vh);
-  aspect-ratio: 1664 / 1024;
-  overflow: hidden;
-  background: #242127;
-  box-shadow: 0 0 70px #000;
-}
+    .scene img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      pointer-events: none;
+    }
 
-.scene img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-}
+    /* Touch area - head + upper body */
+    .yan-touch {
+      position: absolute;
+      left: 37%;
+      top: 11%;
+      width: 26%;
+      height: 42%;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 45% 45% 35% 35%;
+      z-index: 10;
+    }
 
-/* Clickable Yan area */
-.yan-touch {
-  position: absolute;
-  left: 39%;
-  top: 14%;
-  width: 23%;
-  height: 31%;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  border-radius: 45%;
-  -webkit-tap-highlight-color: transparent;
-}
+    /* Blush */
+    .blush {
+      position: absolute;
+      top: 30.5%;
+      width: 5.4%;
+      height: 3.6%;
+      background: radial-gradient(circle, #ff8eab 0%, #ff6b8a 55%, transparent 100%);
+      border-radius: 50%;
+      filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+      z-index: 5;
+    }
 
-/* Blush */
-.blush {
-  position: absolute;
-  top: 32%;
-  width: 5%;
-  height: 3%;
-  background: #ed8297;
-  border-radius: 50%;
-  filter: blur(8px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .3s;
-}
+    .blush.left  { left: 43.2%; }
+    .blush.right { left: 51.8%; }
 
-.blush.left {
-  left: 44%;
-}
+    .scene.petting .blush {
+      opacity: 0.88;
+    }
 
-.blush.right {
-  left: 52%;
-}
+    /* Soft eyelid */
+    .eyelid {
+      position: absolute;
+      top: 26.8%;
+      width: 3.5%;
+      height: 0;
+      background: #c9a08f;
+      border-radius: 50% 50% 40% 40%;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 6;
+      transition: height 0.08s ease-out, opacity 0.08s;
+    }
 
-.scene.petting .blush {
-  opacity: .75;
-}
+    .eyelid.left  { left: 45.4%; }
+    .eyelid.right { left: 51.4%; }
 
-/* Blink effect */
-.blink {
-  position: absolute;
-  top: 27.8%;
-  width: 3.1%;
-  height: 0;
-  background: #b98779;
-  border-radius: 50%;
-  opacity: 0;
-  pointer-events: none;
-}
+    .scene.blinking .eyelid {
+      height: 1.5%;
+      opacity: 0.95;
+    }
 
-.blink.left {
-  left: 46%;
-}
+    /* Hearts */
+    .heart {
+      position: absolute;
+      color: #ffb7c9;
+      font-size: clamp(16px, 2.8vw, 34px);
+      pointer-events: none;
+      animation: floatHeart 1.6s ease-out forwards;
+      z-index: 20;
+      text-shadow: 0 0 10px rgba(255, 140, 170, 0.55);
+    }
 
-.blink.right {
-  left: 51%;
-}
+    @keyframes floatHeart {
+      0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.35) rotate(-12deg);
+      }
+      18% { opacity: 1; }
+      100% {
+        opacity: 0;
+        transform: translateY(-110px) scale(1.4) rotate(14deg);
+      }
+    }
 
-.scene.blinking .blink {
-  height: 1.3%;
-  opacity: .9;
-  transition: height .08s;
-}
+    /* Kiss */
+    .kiss {
+      position: absolute;
+      left: 55%;
+      top: 17%;
+      color: #ff9eb5;
+      font-size: clamp(24px, 3.6vw, 38px);
+      pointer-events: none;
+      animation: kissFly 1.75s cubic-bezier(0.22, 0.85, 0.3, 1) forwards;
+      z-index: 20;
+      text-shadow: 0 0 12px rgba(255, 120, 160, 0.7);
+    }
 
-/* Hearts */
-.heart {
-  position: absolute;
-  color: #f5c2d9;
-  font-size: clamp(18px, 3vw, 35px);
-  pointer-events: none;
-  animation: floatHeart 1.5s ease-out forwards;
-  z-index: 5;
-}
+    @keyframes kissFly {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      25% { opacity: 1; }
+      100% {
+        opacity: 0;
+        transform: scale(1.55) translate(75px, -85px) rotate(18deg);
+      }
+    }
 
-@keyframes floatHeart {
-  0% {
-    opacity: 0;
-    transform: translateY(0) scale(.5);
-  }
-  20% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-90px) scale(1.3);
-  }
-}
+    /* Message */
+    .message {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      transform: translateX(-50%);
+      color: #ffe6ee;
+      font-size: clamp(13px, 2.1vw, 21px);
+      opacity: 0;
+      white-space: nowrap;
+      pointer-events: none;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+      transition: opacity 0.3s ease;
+      z-index: 15;
+      font-weight: 500;
+    }
 
-/* Kiss */
-.kiss {
-  position: absolute;
-  left: 55%;
-  top: 20%;
-  color: #f5c2d9;
-  font-size: 30px;
-  animation: kissFly 1.6s ease-out forwards;
-  pointer-events: none;
-}
+    .scene.petting .message {
+      opacity: 1;
+    }
 
-@keyframes kissFly {
-  0% {
-    opacity: 0;
-    transform: scale(.5);
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(55px,-65px) scale(1.4);
-  }
-}
+    .scene.petting img {
+      filter: brightness(1.04) saturate(1.06);
+      transition: filter 0.3s ease;
+    }
 
-/* Message */
-.message {
-  position: absolute;
-  left: 50%;
-  top: 48%;
-  transform: translateX(-50%);
-  color: #f3d7e5;
-  font-size: clamp(12px, 2vw, 20px);
-  opacity: 0;
-  white-space: nowrap;
-  pointer-events: none;
-  text-shadow: 0 2px 10px #000;
-  transition: opacity .3s;
-}
+    /* Mobile */
+    @media (max-width: 700px) {
+      .scene {
+        width: 100vw;
+        height: 100vh;
+        aspect-ratio: auto;
+      }
 
-.scene.petting .message {
-  opacity: 1;
-}
+      .scene img {
+        object-fit: cover;
+        object-position: center 25%;
+      }
 
-/* Small instruction */
-.hint {
-  position: absolute;
-  bottom: 2%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #e5d4df;
-  font-size: clamp(10px, 1.3vw, 15px);
-  text-align: center;
-  white-space: nowrap;
-  text-shadow: 0 2px 8px #000;
-  pointer-events: none;
-}
+      .yan-touch {
+        left: 32%;
+        top: 14%;
+        width: 36%;
+        height: 38%;
+      }
 
-@media (max-width: 600px) {
-  .scene {
-    width: 100vw;
-    height: 100vh;
-    aspect-ratio: auto;
-  }
+      .blush.left  { left: 40.5%; top: 32%; }
+      .blush.right { left: 53%;   top: 32%; }
 
-  .scene img {
-    object-fit: cover;
-    object-position: center;
-  }
+      .eyelid.left  { left: 43.8%; top: 28.5%; }
+      .eyelid.right { left: 52.2%; top: 28.5%; }
 
-  .yan-touch {
-    left: 36%;
-    top: 18%;
-    width: 29%;
-    height: 29%;
-  }
-
-  .blush.left { left: 42%; }
-  .blush.right { left: 53%; }
-
-  .blink.left { left: 45%; }
-  .blink.right { left: 52%; }
-}
-</style>
+      .message { top: 53%; }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="scene" id="scene">
+  <div class="scene" id="scene">
+    <img src="room.png" alt="Yan" draggable="false" />
 
-  <img src="room.png" alt="Yan in her cozy modern room">
+    <button class="yan-touch" id="yanTouch" aria-label="ناز کردن یان"></button>
 
-  <button class="yan-touch"
-    id="yanTouch"
-    aria-label="Pet Yan">
-  </button>
+    <div class="blush left"></div>
+    <div class="blush right"></div>
 
-  <div class="blush left"></div>
-  <div class="blush right"></div>
+    <div class="eyelid left"></div>
+    <div class="eyelid right"></div>
 
-  <div class="blink left"></div>
-  <div class="blink right"></div>
-
-  <div class="message" id="message">
-    hehe... ♡
+    <div class="message" id="message">hehe... ♡</div>
   </div>
 
-  <div class="hint">
-    ♡ Tap Yan's head to give her some love ♡
-  </div>
+  <script>
+    const scene   = document.getElementById("scene");
+    const button  = document.getElementById("yanTouch");
+    const message = document.getElementById("message");
 
-</div>
+    let audioCtx = null;
+    let isPetting = false;
 
-<script>
-const scene = document.getElementById("scene");
-const button = document.getElementById("yanTouch");
-const message = document.getElementById("message");
+    function playCuteSound() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === "suspended") audioCtx.resume();
 
-let audioContext;
+        const now = audioCtx.currentTime;
 
-function playCuteSound() {
-  try {
-    const Audio = window.AudioContext || window.webkitAudioContext;
-    if (!Audio) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
 
-    if (!audioContext) {
-      audioContext = new Audio();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(940, now);
+        osc.frequency.exponentialRampToValueAtTime(1420, now + 0.09);
+
+        filter.type = "lowpass";
+        filter.frequency.value = 2400;
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.15, now + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.23);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.24);
+
+        // sparkle
+        const sparkle = audioCtx.createOscillator();
+        const sGain = audioCtx.createGain();
+        sparkle.type = "sine";
+        sparkle.frequency.value = 2150;
+        sGain.gain.setValueAtTime(0.045, now + 0.05);
+        sGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        sparkle.connect(sGain);
+        sGain.connect(audioCtx.destination);
+        sparkle.start(now + 0.05);
+        sparkle.stop(now + 0.16);
+      } catch (e) {}
     }
 
-    if (audioContext.state === "suspended") {
-      audioContext.resume();
+    function makeHeart(x, y) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = ["♡", "♥", "✧"][Math.floor(Math.random() * 3)];
+      heart.style.left = x + "%";
+      heart.style.top = y + "%";
+      scene.appendChild(heart);
+      setTimeout(() => heart.remove(), 1700);
     }
 
-    const oscillator = audioContext.createOscillator();
-    const volume = audioContext.createGain();
+    const messages = [
+      "hehe... ♡",
+      "that feels nice...",
+      "you're so sweet ♡",
+      "again? please...",
+      "mmm\~ ♡",
+      "I like that...",
+      "more? ♡"
+    ];
 
-    oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(
-      850, audioContext.currentTime
-    );
+    button.addEventListener("click", () => {
+      if (isPetting) return;
+      isPetting = true;
 
-    oscillator.frequency.exponentialRampToValueAtTime(
-      1200, audioContext.currentTime + .12
-    );
+      scene.classList.add("petting");
+      message.textContent = messages[Math.floor(Math.random() * messages.length)];
+      playCuteSound();
 
-    volume.gain.setValueAtTime(
-      .001, audioContext.currentTime
-    );
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          makeHeart(40 + Math.random() * 20, 18 + Math.random() * 14);
+        }, i * 100);
+      }
 
-    volume.gain.linearRampToValueAtTime(
-      .13, audioContext.currentTime + .03
-    );
+      setTimeout(() => {
+        scene.classList.remove("petting");
+        isPetting = false;
+      }, 1450);
+    });
 
-    volume.gain.exponentialRampToValueAtTime(
-      .001, audioContext.currentTime + .25
-    );
+    button.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      button.click();
+    }, { passive: false });
 
-    oscillator.connect(volume);
-    volume.connect(audioContext.destination);
+    // Blinking
+    function blink() {
+      scene.classList.add("blinking");
+      setTimeout(() => scene.classList.remove("blinking"), 135);
+    }
 
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + .26);
-
-  } catch (error) {
-    console.log("Audio unavailable");
-  }
-}
-
-function makeHeart(x, y) {
-  const heart = document.createElement("div");
-
-  heart.className = "heart";
-  heart.textContent = ["♡", "♥", "✧"][Math.floor(Math.random() * 3)];
-
-  heart.style.left = x + "%";
-  heart.style.top = y + "%";
-
-  scene.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 1600);
-}
-
-button.addEventListener("click", () => {
-  scene.classList.add("petting");
-
-  message.textContent = [
-    "hehe... ♡",
-    "that feels nice!",
-    "you're sweet ♡",
-    "again? ♡"
-  ][Math.floor(Math.random() * 4)];
-
-  playCuteSound();
-
-  makeHeart(
-    42 + Math.random() * 16,
-    23 + Math.random() * 10
-  );
-
-  setTimeout(() => {
-    scene.classList.remove("petting");
-  }, 1300);
-});
-
-// Natural blinking effect
-function blink() {
-  scene.classList.add("blinking");
-
-  setTimeout(() => {
-    scene.classList.remove("blinking");
-  }, 140);
-}
-
-function scheduleBlink() {
-  const delay = 2500 + Math.random() * 3500;
-
-  setTimeout(() => {
-    blink();
+    function scheduleBlink() {
+      setTimeout(() => {
+        blink();
+        scheduleBlink();
+      }, 2300 + Math.random() * 4000);
+    }
     scheduleBlink();
-  }, delay);
-}
 
-scheduleBlink();
+    // Occasional hearts
+    setInterval(() => {
+      makeHeart(37 + Math.random() * 26, 14 + Math.random() * 22);
+    }, 10500);
 
-// Occasional floating hearts
-function littleHeart() {
-  makeHeart(
-    39 + Math.random() * 23,
-    17 + Math.random() * 18
-  );
-}
+    // Occasional kiss
+    setInterval(() => {
+      const kiss = document.createElement("div");
+      kiss.className = "kiss";
+      kiss.textContent = "♡";
+      scene.appendChild(kiss);
+      setTimeout(() => kiss.remove(), 1850);
+    }, 15500);
 
-setInterval(littleHeart, 14000);
-
-// Occasional kiss
-function sendKiss() {
-  const kiss = document.createElement("div");
-
-  kiss.className = "kiss";
-  kiss.textContent = "♡";
-
-  scene.appendChild(kiss);
-
-  setTimeout(() => kiss.remove(), 1700);
-}
-
-setInterval(sendKiss, 18000);
-
-</script>
-
+    document.querySelector("img").addEventListener("dragstart", e => e.preventDefault());
+  </script>
 </body>
 </html>
